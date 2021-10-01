@@ -3,11 +3,11 @@
         <mat-card-title style="margin-bottom: 16px">Acesso ao Sistema</mat-card-title>
         <mat-card-subtitle>AVISO: Sistema de Login ainda não implementado completamente!</mat-card-subtitle>
         <mat-card-content>
-            <mat-form-field appearance="standard" class="login-field">
+            <mat-form-field color="accent" appearance="standard" class="login-field">
                 <mat-label>Usuário</mat-label>
                 <input matInput>
             </mat-form-field>
-            <mat-form-field appearance="standard" class="login-field">
+            <mat-form-field color="accent" appearance="standard" class="login-field">
                 <mat-label>Senha</mat-label>
                 <input matInput [type]="hide ? 'password' : 'text'">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
