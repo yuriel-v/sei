@@ -1,0 +1,10 @@
+<mat-sidenav-container class="main-content">
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+        <div class="sidebar-content">
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet>
+        </router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

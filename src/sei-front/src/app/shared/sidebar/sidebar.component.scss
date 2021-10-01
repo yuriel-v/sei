@@ -1,0 +1,19 @@
+.main-content { 
+    height: 100%;
+}
+
+.sidebar-content { 
+    margin-top: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.sidebar-option { 
+    padding-top: 11px;
+    opacity: 0.6;
+    transition: 0.3s;
+    &:hover { 
+        opacity: 1;
+        cursor: pointer;
+    }
+}
