@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'sei-footer',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private iconService:MatIconRegistry, private domSanitizer:DomSanitizer) {
+    this.iconService.addSvgIcon("gitHub", this.domSanitizer.bypassSecurityTrustResourceUrl("../../assets/github-icon.svg"))
+   }
 
   ngOnInit(): void {
   }

@@ -14,7 +14,6 @@ export class AppComponent {
 
 
   sidebarTrigger(status: boolean) {
-    console.log(status)
     this.sidebarOpened = status;
   }
 
