@@ -5,7 +5,8 @@
         <mat-card-content>
             <mat-form-field color="accent" appearance="standard" class="login-field">
                 <mat-label>Usuário</mat-label>
-                <input matInput>
+                <input matInput placeholder="leosenpai@gmail.com" [formControl]="email" required>
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
             <mat-form-field color="accent" appearance="standard" class="login-field">
                 <mat-label>Senha</mat-label>
