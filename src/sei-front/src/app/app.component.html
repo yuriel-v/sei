@@ -1,3 +1,4 @@
 <sei-header (openSidebarEvent)="sidebarTrigger($event)"></sei-header>
+<mat-progress-bar *ngIf="loaderService.isLoading | async" color="accent" mode="indeterminate"></mat-progress-bar>
 <sei-sidebar [opened]="sidebarOpened"></sei-sidebar>
 <sei-footer></sei-footer>
