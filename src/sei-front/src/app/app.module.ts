@@ -12,6 +12,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptorService } from './loader/loader-interceptor.service';
 import { MatButtonModule } from '@angular/material/button';
+import { TestService } from './loader/test.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatProgressBarModule,
     MatButtonModule
   ],
-  providers: [Title, {provide: HTTP_INTERCEPTORS, useClass:LoaderInterceptorService,  multi:true}],
+  providers: [Title, {provide: HTTP_INTERCEPTORS, useClass:LoaderInterceptorService,  multi:true}, TestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
