@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { TestService } from 'src/app/loader/test.service';
 
 @Component({
   selector: 'sei-header',
@@ -7,7 +8,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private testService:TestService) { }
 
 
   sidebarOpened = false;
@@ -20,6 +21,9 @@ export class HeaderComponent implements OnInit {
     this.sidebarOpened = !this.sidebarOpened;
   }
 
+  testGet() { 
+    this.testService.getTest().subscribe();
+  }
   ngOnInit(): void {
   }
 
