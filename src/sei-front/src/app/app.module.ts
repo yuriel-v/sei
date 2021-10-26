@@ -38,7 +38,7 @@ import { AgendaRoutingModule } from './agenda/agenda-routing.module';
     AgendaModule,
     AgendaRoutingModule
   ],
-  providers: [Title, {provide: HTTP_INTERCEPTORS, useClass:LoaderInterceptorService,  multi:true}],
+  providers: [Title, {provide: HTTP_INTERCEPTORS, useClass:LoaderInterceptorService,  multi:true}, TestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
