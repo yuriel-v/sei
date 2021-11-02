@@ -13,3 +13,4 @@ buildNumber.properties
 .polyglot.pom.*
 .project
 .classpath
+.settings
