@@ -1,0 +1,11 @@
+<server description="SEI Back-end">
+  <featureManager>
+    <feature>jaxrs-2.1</feature>
+  </featureManager>
+
+  <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
+                id="defaultHttpEndpoint" host="*" />
+
+  <webApplication location="sei-back.war" contextRoot="${app.context.root}" 
+                  name="sei-back" id="sei-back" />
+</server>
