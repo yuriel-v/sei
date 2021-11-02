@@ -4,8 +4,14 @@ Back-end do projeto SEI. Escrito em Java usando Servlets, Maven para compilaçã
 
 ## Rodando um servidor de desenvolvimento
 
-Simplesmente navegue até esta pasta e digite `mvn clean package` para compilar. \
-Logo após, digite `mvn tomcat7:run-war` para rodar um servidor de desenvolvimento. O back-end ficará disponível em `http://localhost:8080`.
+Navegue até esta pasta no terminal (`/src/sei-back` referente à raiz do projeto) e rode `mvn liberty:dev`. \
+Pressione enter para rodar testes (unitários e de integração) em demanda.
+
+- Nota: O comando `mvn clean package` irá retornar erros nos testes e **não irá compilar!**
+  - A maneira certa de se rodar testes é rodando o servidor de desenvolvimento e rodando os testes com enter!
+  - Isso poderia ser corrigido (provavelmente) simulando a API com Mockito ou outra framework similar, mas francamente, não temos tempo nem paciência para isso.
+- Nota 2: Caso já tenha compilado o projeto anteriormente (antes de mudarmos de Tomcat para OpenLiberty), favor rodar `mvn clean` antes de executar o comando acima.
+  - Excluir a pasta `/src/sei-back/target` também funciona.
 
 ## Para os desenvolvedores
 
