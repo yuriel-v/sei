@@ -20,15 +20,15 @@ dependencies:
     version: 4.11
     scope: test
   
-  - groupId: javax.servlet
-    artifactId: javax.servlet-api
-    version: 3.0.1
-    scope: provided
+  # - groupId: javax.servlet
+  #   artifactId: javax.servlet-api
+  #   version: 3.0.1
+  #   scope: provided
 
-  - groupId: javax.servlet
-    artifactId: servlet-api
-    version: 2.5
-    scope: provided
+  # - groupId: javax.servlet
+  #   artifactId: servlet-api
+  #   version: 2.5
+  #   scope: provided
 
   - groupId: com.google.code.gson
     artifactId: gson
