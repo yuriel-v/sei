@@ -9,8 +9,8 @@ url: http://www.example.com
 
 
 properties: 
-  maven.compiler.target: 1.7
-  maven.compiler.source: 1.7
+  maven.compiler.target: 11
+  maven.compiler.source: 11
   project.build.sourceEncoding: UTF-8
   # Liberty config
   liberty.var.default.http.port: 9080
