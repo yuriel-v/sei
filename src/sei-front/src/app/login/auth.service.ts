@@ -6,7 +6,6 @@ import { User } from './user';
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
 
 
@@ -29,5 +28,4 @@ export class AuthService {
     return localStorage.getItem('isLoggedIn');
   }
 
-  
 }
