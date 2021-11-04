@@ -1,6 +1,6 @@
 # SEI Back-end
 
-Back-end do projeto SEI. Escrito em Java usando Servlets, Maven para compilação + gerência de dependências, JUnit para testes unitários e Tomcat como container de servlets.
+Back-end do projeto SEI. Escrito em Java usando JAX-RS, Maven para compilação + gerência de dependências, JUnit para testes unitários e OpenLiberty como ambiente de _runtime_.
 
 ## Rodando um servidor de desenvolvimento
 
