@@ -2,13 +2,18 @@
     <button (click)="sidebarToggle()" mat-icon-button>
         <mat-icon>menu</mat-icon>
     </button>
-    <button (click)="testGet()" mat-icon-button>
-        <mat-icon>accessibility</mat-icon>
-    </button>
     <span style="cursor: pointer;" [routerLink]="['']">Sistema de Educação Intuitivo</span>
-    <div style="margin-left: auto;">
+
+    <div *ngIf="!isLogged;else loggedIcons" style="margin-left: auto">
         <button mat-button color="accent"> Registre-se </button>
         <span style="font-size: 15px; padding-right: 10px;">ou</span>
         <button [routerLink]="['login']" mat-stroked-button color="accent"> Faça Log-in </button>
     </div>
+        
+    <ng-container>
+        <ng-template #loggedIcons>
+            <button style="margin-left: auto;" tooltipClass="tooltip" ngbTooltip="Minha agenda" mat-icon-button aria-label="teste"><mat-icon>event</mat-icon></button>
+            <button style="margin-right: 10px;" tooltipClass="tooltip" ngbTooltip="Meu perfil" mat-icon-button aria-label="teste"><mat-icon>account_circle</mat-icon></button>
+        </ng-template>
+    </ng-container>
 </mat-toolbar>

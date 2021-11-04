@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { AuthService } from './auth.service';
+import { User } from './user';
 
 
 @Component({
@@ -10,17 +12,47 @@ import {FormControl, Validators} from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   hide: boolean = true;
-  constructor() { }
+  constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
   }
-  email = new FormControl('', [Validators.required, Validators.email]);
 
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'Insira um endereço';
+  loginForm = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
+  })
+
+  getUsernameErrorMessage() {
+    let usernameControl = this.loginForm.get('username');
+    if (usernameControl?.hasError('required')) {
+        return 'Insira um endereço';
     }
 
-    return this.email.hasError('email') ? 'Endereço Inválido' : '';
+    if (usernameControl?.hasError('email')) {
+        return 'Endereço inválido'
+    }
+    return ''
+  }
+
+  getPasswordErrorMessage() {
+    let passwordControl = this.loginForm.get('password');
+    if (passwordControl?.hasError('required')) {
+        return 'Insira uma senha';
+    }
+    return ''
+  }
+
+  submitLoginForm() { 
+    let user:User = {
+      username:this.loginForm.get('username')?.value,
+      password:this.loginForm.get('password')?.value
+
+    }
+    this.authService.login(user);
+  }
+
+
+  redefinirSenha() { 
+    console.log("Aqui vai a função de redefinir senha")
   }
 }
