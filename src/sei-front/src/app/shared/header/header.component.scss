@@ -1,3 +1,11 @@
 .header { 
     height: 7vh;
 }
+
+.tooltip .tooltip-inner {
+    background-color: #5e5c5c;
+
+  }
+  .tooltip .arrow::before {
+      border-bottom-color: #5e5c5c;
+  }
