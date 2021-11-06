@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Properties;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
+import com.google.gson.Gson;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -16,10 +15,14 @@ import org.junit.jupiter.api.Test;
 
 public class IndexTest 
 {
-    private static final Jsonb JSONB = JsonbBuilder.create();
+    private static final Gson GSON = new Gson();
+
+    public IndexTest() {
+
+    }
 
     @Test
-    public void testGetProperties()
+    public void testIndexConnectivity()
     {
         // TODO: Figure out how the hell to get these properties dynamically like that
         // @SuppressWarnings("unused")
@@ -39,7 +42,7 @@ public class IndexTest
                      "Incorect response code from " + url);
         
         String json = response.readEntity(String.class);
-        Properties sysProps = JSONB.fromJson(json, Properties.class);
+        Properties sysProps = GSON.fromJson(json, Properties.class);
 
         assertEquals(System.getProperty("os.name"), sysProps.getProperty("os.name"),
                      "System property for local and remote JVM should match");
