@@ -6,6 +6,7 @@ import { User } from './user';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
 
@@ -14,9 +15,9 @@ export class AuthService {
   login(user:User) { 
     console.log(user.username);
     console.log(user.password)
-    /*this.http.post("url/to/login", user, {observe:'response'}).subscribe(response => { 
+    this.http.post("url/to/login", user, {observe:'response'}).subscribe(response => { 
       console.log(response);
-    })*/
+    })
     localStorage.setItem('isLoggedIn', 'true');
     this.router.navigate(['/']).then(() => { 
       window.location.reload()
@@ -27,4 +28,6 @@ export class AuthService {
   isLogged() {
     return localStorage.getItem('isLoggedIn');
   }
+
+  
 }

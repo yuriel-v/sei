@@ -12,7 +12,7 @@
         
     <ng-container>
         <ng-template #loggedIcons>
-            <button style="margin-left: auto;" tooltipClass="tooltip" ngbTooltip="Minha agenda" mat-icon-button aria-label="teste"><mat-icon>event</mat-icon></button>
+            <button [routerLink]="['user', 'agenda']" style="margin-left: auto;" tooltipClass="tooltip" ngbTooltip="Minha agenda" mat-icon-button aria-label="teste"><mat-icon>event</mat-icon></button>
             <button style="margin-right: 10px;" tooltipClass="tooltip" ngbTooltip="Meu perfil" mat-icon-button aria-label="teste"><mat-icon>account_circle</mat-icon></button>
         </ng-template>
     </ng-container>
