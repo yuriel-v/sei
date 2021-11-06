@@ -13,6 +13,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptorService } from './loader/loader-interceptor.service';
 import { MatButtonModule } from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { LoginRoutingModule } from './login/login-routing.module';
+import { AgendaModule } from './agenda/agenda.module';
+import { AgendaRoutingModule } from './agenda/agenda-routing.module';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatProgressBarModule,
     MatButtonModule,
     MatTooltipModule,
-    NgbModule
+    NgbModule,
+    LoginRoutingModule,
+    AgendaModule,
+    AgendaRoutingModule
   ],
   providers: [Title, {provide: HTTP_INTERCEPTORS, useClass:LoaderInterceptorService,  multi:true}],
   bootstrap: [AppComponent]
