@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
 
-public class Registry 
+public class Enrollment 
 {
     private Subject subject;
     private ArrayList<Exam> exams;
     private Date registrationDate;
 
-    private Registry() {
+    private Enrollment() {
         this.registrationDate = Calendar.getInstance().getTime();
         this.exams = new ArrayList<Exam>();
 
@@ -18,7 +18,7 @@ public class Registry
             this.exams.add(new Exam(typ, null));
     }
 
-    public Registry(Subject subject)
+    public Enrollment(Subject subject)
     {
         this();
         this.subject = subject;

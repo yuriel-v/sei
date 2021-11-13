@@ -9,15 +9,15 @@ public class User
     private String email;
     private String registry;      // THIS is the PK!
     private String passwordHash;  // NOT the PK, SHA-512 hash
-    private final ArrayList<Registry> registeredSubjects;
+    private final ArrayList<Enrollment> registeredSubjects;
 
     private User() {
-        this.registeredSubjects = new ArrayList<Registry>();
+        this.registeredSubjects = new ArrayList<Enrollment>();
     }
 
     public User(
         String name, String email, String registry, String passwordHash,
-        Registry... registries
+        Enrollment... registries
     ) {
         this();
         this.name = name;
@@ -61,7 +61,7 @@ public class User
         this.passwordHash = passwordHash;
     }
 
-    public ArrayList<Registry> getRegisteredSubjects() {
+    public ArrayList<Enrollment> getRegisteredSubjects() {
         return registeredSubjects;
     }
 }
