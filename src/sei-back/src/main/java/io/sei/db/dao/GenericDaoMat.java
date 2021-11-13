@@ -1,15 +1,17 @@
 package io.sei.db.dao;
 
-import io.sei.api.model.Materia;
+import java.util.ArrayList;
+
+import io.sei.db.model.Subject;
 
 public interface GenericDaoMat {
     
-    public void add(Materia materia);
+    public void add(Subject subject);
 
-    public Materia findById(int id);
+    public ArrayList<Subject> findByName(String name);
 
-    public void delete(int id);
+    public void delete(Subject subject);
 
-    public void update(Materia materia);
+    public void update(Subject subject);
 }
 
