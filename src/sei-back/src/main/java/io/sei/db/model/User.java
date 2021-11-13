@@ -7,8 +7,8 @@ public class User
 {
     private String name;
     private String email;
-    private String registry;
-    private String passwordHash;  // PK, SHA-512 hash
+    private String registry;      // THIS is the PK!
+    private String passwordHash;  // NOT the PK, SHA-512 hash
     private final ArrayList<Registry> registeredSubjects;
 
     private User() {
