@@ -53,7 +53,7 @@ public class UserDao
             throw new IOException("User does not exist in database");
         }
 
-        // needed so as to preserve the user's registries in subjects
+        // needed so as to preserve the user's enrollments in subjects
         // maybe make a method to change all these at once?
         User curUser = this.findByRegistry(user.getRegistry());
         curUser.setEmail(user.getEmail());
