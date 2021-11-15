@@ -39,7 +39,7 @@ public class Login
         final String[] statuses = new String[]
             {"ok", "missing_user", "missing_password", "missing_fields", "inexistent_user", "wrong_password"};
         final int[] httpStatuses = new int[]
-            {200, 400, 400, 400, 404, 401};
+            {200, 400, 400, 400, 401, 401};
 
         return Response
             .status(httpStatuses[code])
