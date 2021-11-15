@@ -15,10 +15,14 @@ public class UserDao
     {
         for (String field : Arrays.asList(user.getName(), user.getEmail(), user.getRegistry(), user.getPasswordHash()))
         {
-            if (field.isBlank() || field == null) {
+            if (UserDao.isNullField(field)) {
                 throw new IOException("Null or empty fields are not allowed");
             }
         }
+    }
+
+    private static boolean isNullField(String field) {
+        return (field.isBlank() || field == null);
     }
 
     public void add(User user) throws IOException
@@ -56,9 +60,15 @@ public class UserDao
         // needed so as to preserve the user's enrollments in subjects
         // maybe make a method to change all these at once?
         User curUser = this.findByRegistry(user.getRegistry());
-        curUser.setEmail(user.getEmail());
-        curUser.setName(user.getName());
-        curUser.setPasswordHash(user.getPasswordHash());
+        if (!UserDao.isNullField(user.getEmail())) {
+            curUser.setEmail(user.getEmail());
+        }
+        if (!UserDao.isNullField(user.getName())) {
+            curUser.setName(user.getName());
+        }
+        if (!UserDao.isNullField(user.getPasswordHash())) {
+            curUser.setPasswordHash(user.getPasswordHash());
+        }
 
         UserDao.users.put(user.getRegistry(), user);
     }
