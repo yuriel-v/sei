@@ -39,7 +39,7 @@ public class Agenda
                 .ok(GSON.toJson(Map.of(
                     "status", "ok",
                     "registry", user.getRegistry(),
-                    "enrollments", user.getRegisteredSubjects()
+                    "enrollments", user.getEnrolledSubjects()
                 ))).build();
         }
     }
