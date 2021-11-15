@@ -54,7 +54,12 @@ public class SubjectDao
             throw new IOException("Subject does not exist in database");
         }
 
-        SubjectDao.subjects.put(subject.getId(), subject);
+        if (!(subject.getName().isBlank() || subject.getName() == null)) {
+            SubjectDao.subjects.put(subject.getId(), subject);
+        }
+        else {
+            throw new IOException("Subject must not have a null or blank name");
+        }
     }
 
     public void update(String id, String newName) throws IOException
