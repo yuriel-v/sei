@@ -11,13 +11,8 @@ public class Exam
     private double grade;
     private Date deadline;
 
-    private Exam() 
-    {
-        this.status = ExamStatus.PENDING;
-        this.grade = 0.0;
-
-        // set to Dec 31st of the current year by default
-        this.deadline = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), 12, 31).getTime();
+    private Exam() {
+        this.reset();
     }
 
     public Exam(ExamType id, Date deadline)
@@ -55,5 +50,13 @@ public class Exam
 
     public void setDeadline(Date deadline) {
         this.deadline = deadline;
+    }
+
+    public void reset()
+    {
+        this.status = ExamStatus.PENDING;
+        this.grade = 0.0;
+        // set to Dec 31st of the current year by default
+        this.deadline = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), 12, 31).getTime();
     }
 }
