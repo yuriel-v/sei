@@ -3,13 +3,37 @@ package io.sei.db.dao;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import org.mindrot.jbcrypt.BCrypt;
+
+import io.sei.db.model.Enrollment;
+import io.sei.db.model.Subject;
 import io.sei.db.model.User;
 
 public class UserDao
 {
     private static final HashMap<String, User> users = new HashMap<String, User>();
 
-    public UserDao() { }
+    public UserDao()
+    {
+        if (UserDao.users.isEmpty())
+        {
+            User adm = new User(
+                "admin", "admin@sei.io", "9999999999", BCrypt.hashpw("passwd", BCrypt.gensalt())
+            );
+            adm.getEnrolledSubjects()
+                .add(new Enrollment(new Subject("DAW", "Desenvolvimento de Aplicações Web")));
+                // yes, i'm aware this is a duped subject.
+                // for all intents and purposes, it'll act the same as the one in the subject DAO.
+                // verification is done by checking if subject1.getId() == subject2.getId() so it's safe.
+                //
+                // terrible practice, but the only other option is using more shenanigans to expose subjectdao's
+                // storage and fetching it from there, in which case it might not even exist yet. this is
+                // the "least wrong" and sure-fire answer.
+
+            UserDao.users.put("9999999999", adm);
+        }
+    }
 
     private static void checkNullFields(User user) throws IOException
     {
