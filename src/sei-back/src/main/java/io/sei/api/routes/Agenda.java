@@ -29,7 +29,7 @@ public class Agenda
         if (user == null)
         {
             return Response
-                .status(Response.Status.NOT_FOUND.getStatusCode())
+                .status(Response.Status.BAD_REQUEST.getStatusCode())
                 .entity(GSON.toJson(Map.of("status", "user not found")))
                 .build();
         }
