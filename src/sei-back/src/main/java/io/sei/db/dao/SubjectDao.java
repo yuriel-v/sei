@@ -2,6 +2,7 @@ package io.sei.db.dao;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.sei.db.model.Subject;
@@ -10,7 +11,74 @@ public class SubjectDao
 {
     private static final HashMap<String, Subject> subjects = new HashMap<String, Subject>();
 
-    public SubjectDao() { }
+    public SubjectDao() 
+    {
+        // mocked data, only includes computer science classes
+        if (SubjectDao.subjects.isEmpty())
+        {
+            ArrayList<String> compsci = new ArrayList<String>(Arrays.asList(
+                // 1
+                "AL1", "Algoritmos I",
+                "IPG", "Introdução à Programação",
+                "ERS", "Ética e Responsabilidade Social",
+                "CEX", "Comunicação e Expressão",
+                "RLG", "Raciocínio Lógico",
+                // 2
+                "AL2", "Algoritmos II",
+                "PGE", "Programação Estruturada",
+                "ARC", "Arquitetura de Computadores",
+                "LGM", "Lógica Matemática",
+                "CDI", "Cálculo Diferencial e Integral",
+                "TES", "Teoria da Engenharia de Software",
+                // 3
+                "ESD", "Estrutura de Dados",
+                "COO", "Conceitos de Orientação a Objetos",
+                "CDG", "Circuitos Digitais",
+                "MDS", "Matemática Discreta",
+                "BD1", "Banco de Dados I",
+                "ERQ", "Engenharia de Requisitos",
+                "ALN", "Álgebra Linear",
+                // 4
+                "EST", "Estatística",
+                "POO", "Programação Orientada a Objetos",
+                "FRD", "Fundamentos de Redes de Computadores",
+                "TCP", "Teoria da Computação",
+                "BD2", "Banco de Dados II",
+                "APS", "Análise e Projeto de Sistemas",
+                "CGR", "Computação Gráfica",
+                // 5
+                "PEC", "Processos Estocásticos",
+                "SOP", "Sistemas Operacionais",
+                "ARD", "Arquitetura de Redes de Computadores",
+                "LFR", "Linguagens Formais",
+                "TGR", "Teoria em Grafos",
+                "QSW", "Qualidade de Software",
+                "MNC", "Métodos Numéricos Computacionais",
+                // 6
+                "IAR", "Inteligência Artificial",
+                "DAW", "Desenvolvimento de Aplicações Web",
+                "MDC", "Metodologia Científica",
+                "CAL", "Complexidade de Algoritmos",
+                "OST", "Otimização de Sistemas",
+                "EMP", "Empreendedorismo",
+                // 7
+                "CBG", "Conceitos Básicos de Gestão",
+                "DAM", "Desenvolvimento de Aplicações Móveis",
+                "PRI", "Projeto Integrador em Ciência da Computação",
+                "CMP", "Compiladores",
+                "DAB", "Desenvolvimento de Aplicações com Banco de Dados",
+                // 8
+                "SIN", "Segurança da Informação",
+                "TAA", "Tópicos Avançados em Arquitetura de Computadores",
+                "DAD", "Desenvolvimento de Aplicações Distribuídas",
+                "TCC", "Trabalho de Conclusão de Curso em Ciência da Computação"
+            ));
+
+            for (int i = 0; i < compsci.size(); i += 2) {
+                SubjectDao.subjects.put(compsci.get(i), new Subject(compsci.get(i), compsci.get(i+1)));
+            }
+        }
+    }
 
     private static void checkNullFields(Subject subject) throws IOException
     {
