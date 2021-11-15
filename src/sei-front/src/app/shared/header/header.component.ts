@@ -1,14 +1,22 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { AuthService } from 'src/app/login/auth.service';
 
 @Component({
   selector: 'sei-header',
   templateUrl: './header.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
 
+
+  isLogged:boolean = false;
+
+
+  constructor(private authService:AuthService) {
+   }
 
   sidebarOpened = false;
 
@@ -20,7 +28,12 @@ export class HeaderComponent implements OnInit {
     this.sidebarOpened = !this.sidebarOpened;
   }
 
+
   ngOnInit(): void {
-  }
+    if (this.authService.isLogged()) { 
+      this.isLogged = true;
+      
+    }
+    }
 
 }

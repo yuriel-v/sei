@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
+import { User } from './user';
 
 
 @Component({
@@ -9,18 +12,60 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
+  invalidLogin:boolean = false;
   hide: boolean = true;
-  constructor() { }
+  constructor(private authService:AuthService, private router:Router) { }
 
   ngOnInit(): void {
   }
-  email = new FormControl('', [Validators.required, Validators.email]);
 
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'Insira um endereço';
+  loginForm = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
+  })
+
+  getUsernameErrorMessage() {
+    let usernameControl = this.loginForm.get('username');
+    if (usernameControl?.hasError('required')) {
+        return 'Insira um usuário';
     }
 
-    return this.email.hasError('email') ? 'Endereço Inválido' : '';
+    if (usernameControl?.hasError('email')) {
+        return 'Usuário inválido'
+    }
+    return ''
+  }
+
+  getPasswordErrorMessage() {
+    let passwordControl = this.loginForm.get('password');
+    if (passwordControl?.hasError('required')) {
+        return 'Insira uma senha';
+    }
+    return ''
+  }
+
+  submitLoginForm() { 
+    let user:User = {
+      user:this.loginForm.get('username')?.value,
+      password:this.loginForm.get('password')?.value
+
+    }
+    this.authService.login(user).subscribe(result => { 
+      if (result.status == 200) { 
+        localStorage.setItem('isLoggedIn', 'true');
+        this.router.navigate(['/']).then(() => { 
+          window.location.reload()
+        })
+      }
+    }, err => { 
+      if (err.status == 401) { 
+        this.invalidLogin = true
+      }
+    });
+  }
+
+
+  redefinirSenha() { 
+    console.log("Aqui vai a função de redefinir senha")
   }
 }

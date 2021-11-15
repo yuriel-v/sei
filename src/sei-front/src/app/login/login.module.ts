@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider'; 
 import { MatButtonModule } from '@angular/material/button'; 
 import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
@@ -24,9 +24,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatDividerModule,
     MatButtonModule,
     MatIconModule,
-    RouterModule,
     FormsModule,
     ReactiveFormsModule
-  ]
+  ],
 })
 export class LoginModule { }

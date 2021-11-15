@@ -3,9 +3,15 @@
     <feature>jaxrs-2.1</feature>
   </featureManager>
 
+<cors domain="/"
+      allowedOrigins="localhost:4200/*"
+      allowedMethods="GET, DELETE, POST, PUT"
+      allowedHeaders="origin, content-type, accept, authorization, cache-control"
+      maxAge= "3600" />
   <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
-                id="defaultHttpEndpoint" host="*" />
+                id="defaultHttpEndpoint" host="localhost" />
 
   <webApplication location="sei-back.war" contextRoot="${app.context.root}" 
                   name="sei-back" id="sei-back" />
+				  
 </server>

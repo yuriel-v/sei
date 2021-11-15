@@ -8,6 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
 import { LoginModule } from './login/login.module';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderInterceptorService } from './loader/loader-interceptor.service';
+import { MatButtonModule } from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { LoginRoutingModule } from './login/login-routing.module';
+import { AgendaModule } from './agenda/agenda.module';
+import { AgendaRoutingModule } from './agenda/agenda-routing.module';
+
 
 @NgModule({
   declarations: [
@@ -20,9 +29,16 @@ import { LoginModule } from './login/login.module';
     BrowserAnimationsModule,
     SharedModule,
     HomeModule,
-    LoginModule
+    LoginModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    MatTooltipModule,
+    NgbModule,
+    LoginRoutingModule,
+    AgendaModule,
+    AgendaRoutingModule
   ],
-  providers: [Title],
+  providers: [Title, {provide: HTTP_INTERCEPTORS, useClass:LoaderInterceptorService,  multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
