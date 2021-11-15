@@ -1,27 +1,21 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from './user';
 
+
+
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
-
-  constructor(private http:HttpClient, private router:Router) { }
+  constructor(private http:HttpClient) { }
 
   login(user:User) { 
-    console.log(user.username);
-    console.log(user.password)
-    // this.http.post("url/to/login", user, {observe:'response'}).subscribe(response => { 
-    //   console.log(response);
-    // })
-    localStorage.setItem('isLoggedIn', 'true');
-    this.router.navigate(['/']).then(() => { 
-      window.location.reload()
-    })
-
+    return this.http.post("http://localhost:9080/login", user, {observe:'response'})
   }
 
   isLogged() {

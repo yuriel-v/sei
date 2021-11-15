@@ -4,7 +4,6 @@
             <mat-card-title style="margin-bottom: 16px">Acesso ao Sistema</mat-card-title>
             <mat-card-subtitle>AVISO: Sistema de Login ainda não implementado completamente!</mat-card-subtitle>
             <mat-card-content>
-                
                     <mat-form-field color="accent" appearance="standard" class="login-field">
                         <mat-label>Usuário</mat-label>
                         <input autocomplete="off" matInput placeholder="PinkBear0520" formControlName="username">
@@ -18,6 +17,7 @@
                         </button>
                         <mat-error *ngIf="loginForm.get('password')?.invalid">{{getPasswordErrorMessage()}}</mat-error>
                     </mat-form-field>
+                    <p *ngIf="invalidLogin" class="invalid-login">Login Inválido!</p>
             </mat-card-content>
             <mat-card-actions>
                     <button type="submit" [disabled]="!loginForm.valid" mat-button color="accent">Entrar</button>
