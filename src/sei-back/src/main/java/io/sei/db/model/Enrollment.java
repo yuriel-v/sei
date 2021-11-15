@@ -35,4 +35,12 @@ public class Enrollment
     public Date getRegistrationDate() {
         return registrationDate;
     }
+
+    public void reset() 
+    {
+        for (Exam exam : this.exams) {
+            exam.reset();
+        }
+        this.registrationDate = Calendar.getInstance().getTime();
+    }
 }
