@@ -6,18 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
 import org.junit.jupiter.api.Test;
 
-public class LoginTest
+public class LoginTest extends EndpointTest
 {
     // 7 test cases:
     // - #1: valid login - returns 200 OK, login status 'ok'
@@ -28,13 +24,6 @@ public class LoginTest
     // - #6: wrong password - returns 401 Unauthorized, login status 'wrong_password'
     // - #7: missing 'username' or 'password' (or both) from JSON keys - returns 400 Bad Request, login status 'incomplete_body'
     //   - Test #7 also covers the case where either 'username' or 'password' or both have a null value.
-
-    private static final Gson GSON = new Gson();
-
-    private static final String port = "9080";
-    private static final String url = String.format("http://localhost:%s/", port);
-    private final Client client = ClientBuilder.newClient();
-    private final WebTarget target = client.target(url + "login");
 
 
     public LoginTest() {

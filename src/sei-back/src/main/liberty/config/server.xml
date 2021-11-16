@@ -8,10 +8,12 @@
       allowedMethods="GET, DELETE, POST, PUT"
       allowedHeaders="origin, content-type, accept, authorization, cache-control"
       maxAge= "3600" />
-  <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
-                id="defaultHttpEndpoint" host="localhost" />
+<httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
+              id="defaultHttpEndpoint" host="localhost" />
 
-  <webApplication location="sei-back.war" contextRoot="${app.context.root}" 
-                  name="sei-back" id="sei-back" />
+<httpSession idLength="28" />
+
+<webApplication location="sei-back.war" contextRoot="${app.context.root}" 
+                name="sei-back" id="sei-back" />
 				  
 </server>

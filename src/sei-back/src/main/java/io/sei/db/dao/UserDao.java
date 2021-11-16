@@ -19,9 +19,9 @@ public class UserDao
         if (UserDao.users.isEmpty())
         {
             User adm = new User(
-                "admin", "admin@sei.io", "9999999999", BCrypt.hashpw("passwd", BCrypt.gensalt())
+                "admin", "admin@sei.io", "9999999999", BCrypt.hashpw("R!c|<r0ll", BCrypt.gensalt())
             );
-            adm.getEnrolledSubjects()
+            adm.getAllEnrolledSubjects()
                 .add(new Enrollment(new Subject("DAW", "Desenvolvimento de Aplicações Web")));
                 // yes, i'm aware this is a duped subject.
                 // for all intents and purposes, it'll act the same as the one in the subject DAO.
@@ -31,7 +31,7 @@ public class UserDao
                 // storage and fetching it from there, in which case it might not even exist yet. this is
                 // the "least wrong" and sure-fire answer.
 
-            UserDao.users.put("9999999999", adm);
+            UserDao.users.put(adm.getRegistry(), adm);
         }
     }
 
