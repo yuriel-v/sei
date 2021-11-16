@@ -19,7 +19,7 @@ public class UserDao
         if (UserDao.users.isEmpty())
         {
             User adm = new User(
-                "admin", "admin@sei.io", "9999999999", BCrypt.hashpw("passwd", BCrypt.gensalt())
+                "admin", "admin@sei.io", "9999999999", BCrypt.hashpw("R!c|<r0ll", BCrypt.gensalt())
             );
             adm.getEnrolledSubjects()
                 .add(new Enrollment(new Subject("DAW", "Desenvolvimento de Aplicações Web")));
