@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import io.sei.db.model.User;
+import io.sei.exception.AlreadyEnrolledException;
 import io.sei.exception.NotEnrolledException;
 import io.sei.db.model.Enrollment;
 import io.sei.db.model.Exam;
@@ -17,7 +18,7 @@ public class EnrollmentDao
     private static final SubjectDao S_DAO = new SubjectDao();
 
 
-    private Enrollment getEnrollment(User user, Subject subject)
+    public Enrollment getEnrollment(User user, Subject subject)
     {
         for (Enrollment enrollment : user.getEnrolledSubjects()) {
             if (enrollment.getSubject().getId() == subject.getId()) return enrollment;
@@ -32,7 +33,7 @@ public class EnrollmentDao
         return this.getEnrollment(user, subject);
     }
 
-    private boolean isEnrolled(User user, Subject subject) {
+    public boolean isEnrolled(User user, Subject subject) {
         return this.getEnrollment(user, subject) == null;
     }
 
@@ -44,10 +45,15 @@ public class EnrollmentDao
     }
 
 
-    private void enroll(User user, Subject subject)
+    public void enroll(User user, Subject subject) throws AlreadyEnrolledException
     {
         if (this.isEnrolled(user, subject)) {
-            this.getEnrollment(user, subject).reset();
+            if (this.getEnrollment(user, subject).isLocked()) {
+                this.getEnrollment(user, subject).reset();
+            }
+            else {
+                throw new AlreadyEnrolledException(null, user.getRegistry(), subject.getId(), subject.getName());
+            }
         }
         else {
             user.getEnrolledSubjects().add(
@@ -56,14 +62,14 @@ public class EnrollmentDao
         }
     }
 
-    public void enroll(String registry, String subjectId)
+    public void enroll(String registry, String subjectId) throws AlreadyEnrolledException
     {
         User usr = U_DAO.findByRegistry(registry);
         Subject sbj = S_DAO.findById(subjectId);
         this.enroll(usr, sbj);
     }
 
-    private void lock(User user, Subject subject) throws NotEnrolledException
+    public void lock(User user, Subject subject) throws NotEnrolledException
     {
         Enrollment enroll = this.getEnrollment(user, subject);
         if (enroll == null) {
@@ -81,23 +87,29 @@ public class EnrollmentDao
     }
 
     public void update(String registry, String subjectId, ExamType examType, String mode, String newval)
-        throws NotEnrolledException, ParseException
+    throws NotEnrolledException, ParseException
     {
         User user = U_DAO.findByRegistry(registry);
         Subject subject = S_DAO.findById(subjectId);
+        this.update(user, subject, examType, mode, newval);
+    }
+
+    public void update(User user, Subject subject, ExamType examType, String mode, String newval)
+        throws NotEnrolledException, ParseException
+    {
         Enrollment enroll = this.getEnrollment(user, subject);
         if (enroll == null) {
             throw new NotEnrolledException(null, user.getRegistry(), subject.getId(), subject.getName());
         }
         Exam exam = enroll.findExam(examType);
 
-        if (mode.toLowerCase() == "grade") {
+        if (mode.compareToIgnoreCase("grade") == 0) {
             exam.setGrade(Double.parseDouble(newval));
         }
-        else if (mode.toLowerCase() == "status") {
+        else if (mode.compareToIgnoreCase("status") == 0) {
             exam.setStatus(ExamStatus.valueOf(newval.toUpperCase()));
         }
-        else if (mode.toLowerCase() == "deadline") {
+        else if (mode.compareToIgnoreCase("deadline") == 0) {
             exam.setDeadline(new SimpleDateFormat("dd/MM/yyyy").parse(newval.replaceAll("-", "/")));
         }
     }
