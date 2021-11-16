@@ -3,17 +3,13 @@ package it.io.sei.api.routes;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Properties;
+import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
-
 import org.junit.jupiter.api.Test;
 
-public class IndexTest 
+public class IndexTest extends EndpointTest
 {
     private static final Gson GSON = new Gson();
 
@@ -28,13 +24,6 @@ public class IndexTest
         // @SuppressWarnings("unused")
         // String context = System.getProperty("context.root");  // just to illustrate how to get the root, it will always be '/' in our project
         // String port = System.getProperty("http.port");
-
-        // For now this will do
-        String port = "9080";
-        String url = String.format("http://localhost:%s/", port);
-
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target(url + "index");
 
         Response response = target.request().get();
 

@@ -2,6 +2,9 @@ package io.sei.db.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class User
 {
@@ -9,7 +12,7 @@ public class User
     private String email;
     private String registry;      // THIS is the PK!
     private String passwordHash;  // NOT the PK, SHA-512 hash
-    private final ArrayList<Enrollment> enrolledSubjects;
+    private final List<Enrollment> enrolledSubjects;
 
     private User() {
         this.enrolledSubjects = new ArrayList<Enrollment>();
@@ -61,7 +64,16 @@ public class User
         this.passwordHash = passwordHash;
     }
 
-    public ArrayList<Enrollment> getEnrolledSubjects() {
+    public List<Enrollment> getEnrolledSubjects() 
+    {
+        Predicate<Enrollment> active = x -> !x.isLocked();
+        List<Enrollment> activeEnrolls = this.enrolledSubjects.stream()
+                                                              .filter(active)
+                                                              .collect(Collectors.<Enrollment>toList());
+        return activeEnrolls;
+    }
+
+    public List<Enrollment> getAllEnrolledSubjects() {
         return enrolledSubjects;
     }
 }

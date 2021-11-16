@@ -1,12 +1,18 @@
 package io.sei.api.controller;
 
+import org.mindrot.jbcrypt.BCrypt;
+
+import io.sei.db.dao.UserDao;
+import io.sei.db.model.User;
+
 public class Loginctl
 {
+    private static final UserDao U_DAO = new UserDao();
     public Loginctl() {
 
     }
 
-    public int verifyLogin(String username, String password)
+    public int verifyLogin(String registry, String password)
     {
         // 0: OK
         // 1: Missing user
@@ -15,17 +21,20 @@ public class Loginctl
         // 4: Inexistent user
         // 5: Wrong password
 
-        int status = (username == null || username.isBlank() || username.isEmpty()) ? 1 : 0;
+        int status = (registry == null || registry.isBlank() || registry.isEmpty()) ? 1 : 0;
         status += (password == null || password.isEmpty()) ? 2 : 0;
 
         if (status != 0)
             return status;
         else
         {
-            if (username.compareTo("admin") != 0)
+            User user = U_DAO.findByRegistry(registry);
+            if (user == null) {
                 return 4;
-            else if (password.compareTo("R!c|<r0ll") != 0)
+            }
+            else if (!BCrypt.checkpw(password, user.getPasswordHash())) {
                 return 5;
+            }
             else
                 return 0;
         }
