@@ -20,7 +20,7 @@ public class EnrollmentDao
 
     public Enrollment getEnrollment(User user, Subject subject)
     {
-        for (Enrollment enrollment : user.getEnrolledSubjects()) {
+        for (Enrollment enrollment : user.getAllEnrolledSubjects()) {
             if (enrollment.getSubject().getId() == subject.getId()) return enrollment;
         }
         return null;
@@ -56,7 +56,7 @@ public class EnrollmentDao
             }
         }
         else {
-            user.getEnrolledSubjects().add(
+            user.getAllEnrolledSubjects().add(
                 new Enrollment(subject)
             );
         }
@@ -110,7 +110,7 @@ public class EnrollmentDao
             exam.setStatus(ExamStatus.valueOf(newval.toUpperCase()));
         }
         else if (mode.compareToIgnoreCase("deadline") == 0) {
-            exam.setDeadline(new SimpleDateFormat("dd/MM/yyyy").parse(newval.replaceAll("-", "/")));
+            exam.setDeadline(new SimpleDateFormat("dd/MM/yyyy").parse(newval.replace('-', '/')));
         }
     }
 }

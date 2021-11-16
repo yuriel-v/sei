@@ -77,7 +77,7 @@ public class Enrollment
     public Exam findExam(ExamType type)
     {
         for (Exam exam : this.exams) {
-            if (exam.getId() == type) return exam;
+            if (exam.getType() == type) return exam;
         }
         return null;
     }
