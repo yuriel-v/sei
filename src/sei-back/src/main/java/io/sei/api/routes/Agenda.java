@@ -8,7 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -41,7 +41,7 @@ public class Agenda
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAgenda(@PathParam("m") String registry)
+    public Response getAgenda(@QueryParam("m") String registry)
     {
         User user = U_DAO.findByRegistry(registry);
         if (user == null)
@@ -57,7 +57,9 @@ public class Agenda
                 .ok(GSON.toJson(Map.of(
                     "status", "ok",
                     "registry", user.getRegistry(),
-                    "enrollments", user.getEnrolledSubjects()
+                    "enrollments", user.getEnrolledSubjects(),
+                    "name", user.getName(),
+                    "email", user.getEmail()
                 ))).build();
         }
     }
@@ -77,7 +79,7 @@ public class Agenda
         String registry = (String) body.get("user");
         String action = (String) body.get("action");
         HashMap<String, String> data = GSON.fromJson(
-            GSON.toJson(body.get("data")), new TypeToken<HashMap<String, Object>>(){}.getType()
+            GSON.toJson(body.get("data")), new TypeToken<HashMap<String, String>>(){}.getType()
         );
 
         List<String> result = null;
@@ -110,6 +112,10 @@ public class Agenda
     {
         if (!data.containsKey("subjectId")) {
             return false;
+        }
+
+        if (action.compareTo("enroll") == 0 || action.compareTo("lock") == 0) {
+            return true;  // will never get here if it fails the above check, which is all that's needed for these
         }
         else if (action.compareTo("grade") == 0) {
             return data.containsKey("exam") && data.containsKey("grade");
