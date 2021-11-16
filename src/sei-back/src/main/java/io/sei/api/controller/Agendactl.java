@@ -49,7 +49,7 @@ public class Agendactl
             else if (action.compareTo("status") == 0) {
                 return this.setStatus(
                     registry, data.get("subjectId"),
-                    exam, data.get("status").trim().toUpperCase()
+                    exam, data.get("status").toUpperCase()
                 );
             }
             else if (action.compareTo("deadline") == 0) {
@@ -156,9 +156,8 @@ public class Agendactl
 
         try
         {
-            @SuppressWarnings("unused")
             ExamStatus realStatus = ExamStatus.valueOf(status);
-            E_DAO.update(user, subject, exam, "grade", status);
+            E_DAO.update(user, subject, exam, "status", realStatus.toString());
         }
         catch (IllegalArgumentException e) {
             return Arrays.asList("400", "status not convertible to ExamStatus enum");
@@ -169,7 +168,7 @@ public class Agendactl
         catch (Exception e) {
             return Arrays.asList("500", e.getMessage());
         }
-        return Arrays.asList("200", "grade changed");
+        return Arrays.asList("200", "status changed");
     }
 
     public List<String> setDeadline(String registry, String subjectId, ExamType exam, String deadline)
@@ -185,7 +184,7 @@ public class Agendactl
         }
 
         try {
-            E_DAO.update(user, subject, exam, "grade", deadline);
+            E_DAO.update(user, subject, exam, "deadline", deadline);
         }
         catch (ParseException e) {
             return Arrays.asList("400", "deadline not convertible to Date object");
@@ -196,6 +195,6 @@ public class Agendactl
         catch (Exception e) {
             return Arrays.asList("500", e.getMessage());
         }
-        return Arrays.asList("200", "grade changed");
+        return Arrays.asList("200", "deadline changed");
     }
 }
