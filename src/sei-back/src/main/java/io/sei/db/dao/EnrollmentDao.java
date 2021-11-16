@@ -1,6 +1,5 @@
 package io.sei.db.dao;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -18,26 +17,26 @@ public class EnrollmentDao
     private static final SubjectDao S_DAO = new SubjectDao();
 
 
-    private Enrollment getEnrollment(User user, Subject subject) throws IOException
+    private Enrollment getEnrollment(User user, Subject subject)
     {
-        if (user == null || subject == null) {
-            throw new IOException("Inexistent user or subject");
-        }
-
         for (Enrollment enrollment : user.getEnrolledSubjects()) {
             if (enrollment.getSubject().getId() == subject.getId()) return enrollment;
         }
         return null;
     }
 
-    public Enrollment getEnrollment(String registry, String subjectId) throws IOException
+    public Enrollment getEnrollment(String registry, String subjectId)
     {
         User user = U_DAO.findByRegistry(registry);
         Subject subject = S_DAO.findById(subjectId);
         return this.getEnrollment(user, subject);
     }
 
-    public boolean isEnrolled(String registry, String subjectId) throws IOException
+    private boolean isEnrolled(User user, Subject subject) {
+        return this.getEnrollment(user, subject) == null;
+    }
+
+    public boolean isEnrolled(String registry, String subjectId)
     {
         User user = U_DAO.findByRegistry(registry);
         Subject subject = S_DAO.findById(subjectId);
@@ -45,9 +44,9 @@ public class EnrollmentDao
     }
 
 
-    private void enroll(User user, Subject subject) throws IOException
+    private void enroll(User user, Subject subject)
     {
-        if (this.isEnrolled(user.getRegistry(), subject.getId())) {
+        if (this.isEnrolled(user, subject)) {
             this.getEnrollment(user, subject).reset();
         }
         else {
@@ -57,14 +56,14 @@ public class EnrollmentDao
         }
     }
 
-    public void enroll(String registry, String subjectId) throws IOException
+    public void enroll(String registry, String subjectId)
     {
         User usr = U_DAO.findByRegistry(registry);
         Subject sbj = S_DAO.findById(subjectId);
         this.enroll(usr, sbj);
     }
 
-    private void lock(User user, Subject subject) throws NotEnrolledException, IOException
+    private void lock(User user, Subject subject) throws NotEnrolledException
     {
         Enrollment enroll = this.getEnrollment(user, subject);
         if (enroll == null) {
@@ -74,7 +73,7 @@ public class EnrollmentDao
         enroll.toggleLock();
     }
 
-    public void lock(String registry, String subjectId) throws NotEnrolledException, IOException
+    public void lock(String registry, String subjectId) throws NotEnrolledException
     {
         User usr = U_DAO.findByRegistry(registry);
         Subject sbj = S_DAO.findById(subjectId);
@@ -82,7 +81,7 @@ public class EnrollmentDao
     }
 
     public void update(String registry, String subjectId, ExamType examType, String mode, String newval)
-        throws NotEnrolledException, IOException, ParseException
+        throws NotEnrolledException, ParseException
     {
         User user = U_DAO.findByRegistry(registry);
         Subject subject = S_DAO.findById(subjectId);
@@ -100,9 +99,6 @@ public class EnrollmentDao
         }
         else if (mode.toLowerCase() == "deadline") {
             exam.setDeadline(new SimpleDateFormat("dd/MM/yyyy").parse(newval.replaceAll("-", "/")));
-        }
-        else {
-            throw new IOException(String.format("Unknown mode '%s'", mode));
         }
     }
 }
