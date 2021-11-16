@@ -1,5 +1,6 @@
 package io.sei.api.routes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,8 @@ import com.google.gson.reflect.TypeToken;
 
 import io.sei.api.controller.Agendactl;
 import io.sei.db.dao.UserDao;
+import io.sei.db.model.Enrollment;
+import io.sei.db.model.Subject;
 import io.sei.db.model.User;
 
 @Path("/agenda")
@@ -39,6 +42,40 @@ public class Agenda
         return true;
     }
 
+    // because this is the GET body's builder, a bodybuilder
+    // HUE
+    private HashMap<String, Object> arnoldSchwarzenegger(User user)
+    {
+        HashMap<String, Object> response = new HashMap<String, Object>();
+        ArrayList<Map<String, Object>> enrolls = new ArrayList<Map<String, Object>>();
+
+        for (Enrollment enroll : user.getEnrolledSubjects())
+        {
+            Subject sub = enroll.getSubject();
+            enrolls.add(Map.of(
+                "subject", Map.of(
+                    "id", sub.getId(),
+                    "name", sub.getName(),
+                    "status", enroll.getSituation(),
+                    "limite", enroll.getExpiration(),
+                    "nota", enroll.getFinalGrade()
+                ),
+                "exams", enroll.getExams(),
+                "registrationDate", enroll.getRegistrationDate(),
+                "locked", enroll.isLocked()
+            ));
+        }
+
+        response.putAll(Map.of(
+            "status", "ok",
+            "registry", user.getRegistry(),
+            "name", user.getName(),
+            "email", user.getEmail(),
+            "enrollments", enrolls
+        ));
+        return response;
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAgenda(@QueryParam("m") String registry)
@@ -51,16 +88,8 @@ public class Agenda
                 .entity(GSON.toJson(Map.of("status", "user not found")))
                 .build();
         }
-        else
-        {
-            return Response
-                .ok(GSON.toJson(Map.of(
-                    "status", "ok",
-                    "registry", user.getRegistry(),
-                    "enrollments", user.getEnrolledSubjects(),
-                    "name", user.getName(),
-                    "email", user.getEmail()
-                ))).build();
+        else {
+            return Response.ok(GSON.toJson(this.arnoldSchwarzenegger(user))).build();
         }
     }
 
