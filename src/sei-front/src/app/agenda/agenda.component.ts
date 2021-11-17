@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { AgendaService } from './agenda.service';
 import { Agenda } from './model/Agenda';
+import { Assignment } from './model/Assignment';
 import { Enrollment } from './model/Enrollment';
 import { Subject } from './model/Subject';
 
@@ -16,7 +17,7 @@ export class AgendaComponent implements OnInit {
 
   noContent:boolean = false;
   materias:Subject[] = []
-  
+  exams:Assignment[] = []
 
   tabelaAgendaColuna = ["Matéria", "Limite", "Status", "Nota"]
 
@@ -26,10 +27,10 @@ export class AgendaComponent implements OnInit {
         let agenda:Agenda = result.body
         agenda.enrollments.forEach(enrollment => { 
           this.materias.push(enrollment.subject)
+          this.exams = enrollment.exams;
         })
-
         console.log(agenda)
-        console.log(this.materias);
+        console.log(this.materias)
       }
       else {
         this.noContent = true;

@@ -8,14 +8,10 @@
 
 </div>
 
-<div class="container" style="width: 100%;">
-    <table style="width: 100%;">
-        <tr>
-            <th style="width: 27%;padding-left: 3%;">Matéria</th>
-            <th style="width: 26%;">Limite</th>
-            <th style="width: 24%;">Status</th>
-            <th>Nota</th>
-        </tr>
-    </table>
+<div *ngIf="!noContent;else noContentToDisplay">    
+    <div class="container" *ngFor="let subject of materias">
+        <div style="padding-top: 5px;"> <app-materia [exams]="exams" [subject]="subject" ></app-materia> </div>     
+    </div>
 </div>
-<div class="container"> <div style="padding-top: 5px;"> <app-materia></app-materia> </div> </div>
+
+<ng-template #noContentToDisplay> <p style="font-style: italic;text-align: center;font-weight: 500;">Sem conteúdo para visualizar.</p> </ng-template>
