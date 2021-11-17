@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+
+import { Assignment } from '../model/Assignment';
 import { Subject } from '../model/Subject';
 
 @Component({
@@ -11,9 +13,9 @@ export class MateriaComponent implements OnInit {
 
   @Input() materiaOpened:boolean = false;
 
-  @Input() materia:Subject[] = []
-
-  assignments:any[] = [{name:"AV1", limite:"17-11-2021", status:"Não feito", nota:"9.0"}]
+  @Input() subject:Subject = {id:'undefined', name:'undefined', status:'undefined', limite:new Date(), nota:0};
+  
+  @Input() exams:Assignment[] = []
 
   constructor() { }
 

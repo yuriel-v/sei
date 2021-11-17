@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './auth.service';
 import { User } from './user';
 
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   invalidLogin:boolean = false;
   hide: boolean = true;
-  constructor(private authService:AuthService, private router:Router) { }
+  constructor(private cookieService:CookieService,private authService:AuthService, private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -52,7 +53,7 @@ export class LoginComponent implements OnInit {
     }
     this.authService.login(user).subscribe(result => { 
       if (result.status == 200) { 
-        localStorage.setItem('isLoggedIn', 'true');
+        this.cookieService.set('registry', user.user);
         this.router.navigate(['/']).then(() => { 
           window.location.reload()
         })

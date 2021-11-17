@@ -1,6 +1,6 @@
 export interface Assignment { 
-    name:string,
+    type:string,
     status:string,
-    limite:Date,
-    nota:number
+    deadline:Date,
+    grade:number
 }

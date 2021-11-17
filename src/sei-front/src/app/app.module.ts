@@ -16,6 +16,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { LoginRoutingModule } from './login/login-routing.module';
 import { AgendaModule } from './agenda/agenda.module';
 import { AgendaRoutingModule } from './agenda/agenda-routing.module';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { AgendaRoutingModule } from './agenda/agenda-routing.module';
     AgendaModule,
     AgendaRoutingModule
   ],
-  providers: [Title, {provide: HTTP_INTERCEPTORS, useClass:LoaderInterceptorService,  multi:true}],
+  providers: [Title, {provide: HTTP_INTERCEPTORS, useClass:LoaderInterceptorService,  multi:true}, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
