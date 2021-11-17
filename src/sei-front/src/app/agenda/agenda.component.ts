@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { AgendaService } from './agenda.service';
+import { Agenda } from './model/Agenda';
+import { Enrollment } from './model/Enrollment';
 import { Subject } from './model/Subject';
 
 @Component({
@@ -8,14 +12,29 @@ import { Subject } from './model/Subject';
 })
 export class AgendaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private cookieService:CookieService, private agendaService:AgendaService) { }
 
-  materias:Subject[] = [{name:"Processos Estocáticos", limite:new Date(), assignments:[], nota:9.0, status:"Aprovado"}]
+  noContent:boolean = false;
+  materias:Subject[] = []
   
 
   tabelaAgendaColuna = ["Matéria", "Limite", "Status", "Nota"]
 
   ngOnInit(): void {
+    this.agendaService.getMaterias(this.cookieService.get('registry')).subscribe(result => { 
+      if (result.body) {
+        let agenda:Agenda = result.body
+        agenda.enrollments.forEach(enrollment => { 
+          this.materias.push(enrollment.subject)
+        })
+
+        console.log(agenda)
+        console.log(this.materias);
+      }
+      else {
+        this.noContent = true;
+      }
+    })
   }
 
 }

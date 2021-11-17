@@ -1,10 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { User } from './user';
 
 
-
+const API_URL = "http://localhost:9080"
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +14,17 @@ import { User } from './user';
 
 export class AuthService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private cookieService:CookieService, private http:HttpClient) { }
 
   login(user:User) { 
-    return this.http.post("http://localhost:9080/login", user, {observe:'response'})
+    return this.http.post(`${API_URL}/login`, user, {observe:'response'})
   }
 
   isLogged() {
-    return localStorage.getItem('isLoggedIn');
+    if (this.cookieService.get('registry')) { 
+      return true
+    }
+    else return false;
   }
 
   
