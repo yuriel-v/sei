@@ -18,20 +18,31 @@ public class UserDao
     {
         if (UserDao.users.isEmpty())
         {
+            SubjectDao sdao = new SubjectDao();
+
             User adm = new User(
                 "admin", "admin@sei.io", "9999999999", BCrypt.hashpw("R!c|<r0ll", BCrypt.gensalt())
             );
             adm.getAllEnrolledSubjects()
-                .add(new Enrollment(new Subject("DAW", "Desenvolvimento de Aplicações Web")));
-                // yes, i'm aware this is a duped subject.
-                // for all intents and purposes, it'll act the same as the one in the subject DAO.
-                // verification is done by checking if subject1.getId() == subject2.getId() so it's safe.
-                //
-                // terrible practice, but the only other option is using more shenanigans to expose subjectdao's
-                // storage and fetching it from there, in which case it might not even exist yet. this is
-                // the "least wrong" and sure-fire answer.
+                .add(new Enrollment(sdao.findById("DAW")));
+
+            User lbval = new User("Leonardo Braga Valim", "2019101557@aluno.unicarioca.edu.br", "2019101557", BCrypt.hashpw("lbval", BCrypt.gensalt()));
+            for (String subjectID : new String[] {"DAW", "MDC", "EMP", "ARD", "QSW", "PEC", "MNC"})
+            {
+                Subject subject = sdao.findById(subjectID);
+                lbval.getAllEnrolledSubjects().add(new Enrollment(subject));
+            }
+
+            User gfids = new User("Gabriel Fidelis Souza", "2019101478@aluno.unicarioca.edu.br", "2019101478", BCrypt.hashpw("gfids", BCrypt.gensalt()));
+            for (String subjectID : new String[] {"DAW", "IAR", "ARD", "PEC", "MNC"})
+            {
+                Subject subject = sdao.findById(subjectID);
+                gfids.getAllEnrolledSubjects().add(new Enrollment(subject));
+            }
 
             UserDao.users.put(adm.getRegistry(), adm);
+            UserDao.users.put(lbval.getRegistry(), lbval);
+            UserDao.users.put(gfids.getRegistry(), gfids);
         }
     }
 
