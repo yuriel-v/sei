@@ -1,18 +1,21 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header>
         <mat-panel-title> {{subject.name}} </mat-panel-title>
-        <mat-panel-description> {{subject.limite | date:'dd/MM/yyyy'}}</mat-panel-description>
-        <mat-panel-description>{{subject.status}}</mat-panel-description>
-        <mat-panel-description>{{subject.nota}} </mat-panel-description>
+        <mat-panel-description> <span style="font-weight: 500;">Limite: &nbsp;</span> {{subject.limite | date:'dd/MM/yyyy'}}</mat-panel-description>
+        <mat-panel-description> <span style="font-weight: 500;">Status: &nbsp;</span> {{subject.status}}</mat-panel-description>
+        <mat-panel-description *ngIf="subject.nota >= 0;else semNota"> <span style="font-weight: 500;">Nota: &nbsp;</span> {{subject.nota}} </mat-panel-description>
+        <ng-template #semNota>        
+            <mat-panel-description> <span style="font-weight: 500;">Nota: &nbsp;</span> N/A </mat-panel-description>
+        </ng-template>
     </mat-expansion-panel-header>
 
     <table mat-table [dataSource]="exams" style="width: 98%;"> 
 
         <ng-container matColumnDef="name">
-            <td mat-cell *matCellDef="let assignment"> {{assignment.type}} </td>
+            <td mat-cell *matCellDef="let assignment">{{assignment.type}}</td>
         </ng-container>
         <ng-container matColumnDef="limite" class="table-cell">
-            <td mat-cell *matCellDef="let assignment"> {{assignment.deadline}} </td>
+            <td mat-cell *matCellDef="let assignment"> {{assignment.deadline | date:'dd/MM/yyyy'}} </td>
         </ng-container>
         <ng-container matColumnDef="status" class="table-cell">
             <td mat-cell *matCellDef="let assignment"> {{assignment.status}} </td>
