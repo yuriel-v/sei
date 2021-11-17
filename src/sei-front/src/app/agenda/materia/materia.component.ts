@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Assignment } from '../model/Assignment';
+import { AssignmentStatus } from '../model/Assignment-Status';
 import { Subject } from '../model/Subject';
 
 @Component({
@@ -24,4 +25,14 @@ export class MateriaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getAssignmentStatus(assignment:Assignment) { 
+    console.log(assignment.status)
+    if (assignment.status == "PENDING") { 
+      return AssignmentStatus.PENDING
+    }
+    else if (assignment.status == "PENDING_OK") { 
+      return AssignmentStatus.PENDING_OK
+    }
+    else return AssignmentStatus.OK
+  }
 }
