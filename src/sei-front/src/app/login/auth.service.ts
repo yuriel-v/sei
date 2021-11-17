@@ -14,7 +14,7 @@ const API_URL = "http://localhost:9080"
 
 export class AuthService {
 
-  constructor(private cookieService:CookieService, private http:HttpClient) { }
+  constructor(private router:Router, private cookieService:CookieService, private http:HttpClient) { }
 
   login(user:User) { 
     return this.http.post(`${API_URL}/login`, user, {observe:'response'})
@@ -27,5 +27,11 @@ export class AuthService {
     else return false;
   }
 
+  logout() { 
+    this.cookieService.delete('registry');
+    this.router.navigate(['/']).then(() => { 
+      window.location.reload()
+    })
+  }
   
 }

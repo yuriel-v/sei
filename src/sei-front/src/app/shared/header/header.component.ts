@@ -28,11 +28,13 @@ export class HeaderComponent implements OnInit {
     this.sidebarOpened = !this.sidebarOpened;
   }
 
+  logout() { 
+    this.authService.logout()
+  }
 
   ngOnInit(): void {
     if (this.authService.isLogged()) { 
       this.isLogged = true;
-      
     }
     }
 
