@@ -1,8 +1,8 @@
 package io.sei.db.dao;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.sei.db.model.Subject;
@@ -16,7 +16,7 @@ public class SubjectDao
         // mocked data, only includes computer science classes
         if (SubjectDao.subjects.isEmpty())
         {
-            ArrayList<String> compsci = new ArrayList<String>(Arrays.asList(
+            String[] compsci = {
                 // 1
                 "AL1", "Algoritmos I",
                 "IPG", "Introdução à Programação",
@@ -72,10 +72,16 @@ public class SubjectDao
                 "TAA", "Tópicos Avançados em Arquitetura de Computadores",
                 "DAD", "Desenvolvimento de Aplicações Distribuídas",
                 "TCC", "Trabalho de Conclusão de Curso em Ciência da Computação"
-            ));
+            };
 
-            for (int i = 0; i < compsci.size(); i += 2) {
-                SubjectDao.subjects.put(compsci.get(i), new Subject(compsci.get(i), compsci.get(i+1)));
+            for (int i = 0; i < compsci.length; i += 2) {
+                SubjectDao.subjects.put(
+                    new String(compsci[i].getBytes(), StandardCharsets.UTF_8),
+                    new Subject(
+                        new String(compsci[i].getBytes(), StandardCharsets.UTF_8),
+                        new String(compsci[i+1].getBytes(), StandardCharsets.UTF_8)
+                    )
+                );
             }
         }
     }
