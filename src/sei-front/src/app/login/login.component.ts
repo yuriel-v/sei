@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   getUsernameErrorMessage() {
     let usernameControl = this.loginForm.get('username');
     if (usernameControl?.hasError('required')) {
-        return 'Insira um usuário';
+        return 'Insira uma matrícula';
     }
 
     if (usernameControl?.hasError('email')) {
