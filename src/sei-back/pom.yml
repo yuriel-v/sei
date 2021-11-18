@@ -16,6 +16,9 @@ properties:
   liberty.var.default.http.port: 9080
   liberty.var.default.https.port: 9443
   liberty.var.app.context.root: "/"
+  liberty.jvm.arg1: -Duser.language=pt
+  liberty.jvm.arg2: -Duser.country=BR
+  liberty.jvm.arg3: -Dfile.encoding=utf-8
 
 
 
@@ -102,6 +105,8 @@ build:
       - groupId: org.apache.maven.plugins
         artifactId: maven-compiler-plugin
         version: 3.8.0
+        configuration:
+          encoding: UTF-8
 
       - groupId: org.apache.maven.plugins
         artifactId: maven-surefire-plugin

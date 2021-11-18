@@ -12,6 +12,7 @@
               id="defaultHttpEndpoint" host="localhost" />
 
 <httpSession idLength="28" />
+<httpEncoding encoding.en="UTF-8" encoding.pt="UTF-8"/>
 
 <webApplication location="sei-back.war" contextRoot="${app.context.root}" 
                 name="sei-back" id="sei-back" />
