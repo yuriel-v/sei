@@ -3,6 +3,21 @@
 Sistema de Educação Intuitivo: Um sistema que incorpora um boletim e agenda acadêmica com um repositório de conteúdo. \
 Atualmente, o projeto conta com um back-end em Java (OpenLiberty) e um front-end em Angular. Mais detalhes abaixo.
 
+## Rodando o projeto como um todo
+- Clone o repositório do projeto (seja por SSH, seja por HTTPS) e mude para esta branch (`uni`);
+  - Caso esteja em Windows, utilize o WSL para fazer o clone do projeto.
+  - Muita atenção para não clonar dentro do seu sistema de arquivos Windows, pois podem ocorrer problemas de permissão ou algo do tipo!
+  - Seu sistema de arquivos Windows fica em `/mnt/c/`
+    - Sugestão: Clone para o homedir do seu usuário Ubuntu (`~`, ou `/home/<username>`)
+- Abra 2 terminais bash do Ubuntu (WSL caso esteja em Windows);
+- Em um terminal, siga as [instruções de instalação e execução do front-end](#instalação-do-front-end);
+  - Nota: Caso em WSL, fica aqui um [link de instalação do Node.JS](https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions) - instale a versão 16.x.
+- No outro terminal, siga as [instruções de instalação e execução do back-end](#instalação-do-back-end-em-ubuntu);
+- Quando ambos front e back-end estiverem rodando, abra o seu navegador e vá até a página `http://localhost:4200`;
+- Se tudo estiver OK, você verá o site rodando normalmente.
+
+---
+
 ## Front-end
 Projeto feito em **Angular 13**, utilizando **Node.JS 16**.
 
@@ -39,12 +54,5 @@ Consiste em uma API REST elaborada usando JAX-RS, contando com 3 endpoints:
   - Usuário `gfids`, matrícula `2019101478` e senha `gfids`;
   - Usuário `admin`, matrícula `9999999999` e senha `R!c|<r0ll`.
 - No momento, não há suporte para edição dos dados mockados. Isso será implementado pós-matéria.
-
-
-## Rodando o projeto como um todo
-1. Clone o repositório do projeto (seja por SSH, seja por HTTPS) e mude para esta branch (`uni`);
-2. Abra 2 terminais, com 1 deles necessariamente sendo o bash do Ubuntu (WSL caso esteja em Windows);
-3. Em um terminal, siga as [instruções de instalação e execução do front-end](#instalação-do-front-end);
-4. No terminal bash, siga as [instruções de instalação e execução do back-end](#instalação-do-back-end-em-ubuntu);
-5. Abra o seu navegador e vá até a página `http://localhost:4200`;
-6. Se tudo estiver OK, você verá o site rodando normalmente.
+- Quando o front-end é rodado em Windows e o back-end em WSL, não há comunicação entre os dois. Isso se dá pelo fato de que o WSL é uma **máquina virtual** rodando em cima do Hyper-V do Windows, logo não é considerado "o mesmo dispositivo" para fins de integração.
+  - Caso esteja rodando o projeto em Windows, **faça todas as etapas no WSL** - caso feito em Windows, vide segundo item da lista.
